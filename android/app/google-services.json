@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1057480710402",
+    "project_id": "makuuygulama",
+    "storage_bucket": "makuuygulama.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057480710402:android:ec68e171b391243dbf4a1b",
+        "android_client_info": {
+          "package_name": "com.aom.makuuygulama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057480710402-5hf66uuirseaotsl3fa1jsv7cunj02e2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl_toqthX1y7hEP-QLpSKum5X8fmXQccA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057480710402-5hf66uuirseaotsl3fa1jsv7cunj02e2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
