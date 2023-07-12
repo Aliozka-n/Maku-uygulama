@@ -1,5 +1,14 @@
-class Svalue {
+class AppConsts {
   static String secilenil = "Tüm iller";
+  static String secilenBolum = "Tüm bölümler";
+  static String somethingError = "Bir hata oluştu";
+  static String userName = "Kullanıcı adı";
+  static String email = "E-mail";
+  static String section = "Bölüm";
+  static String county = "İl";
+  static String workingStatus = "Çalışma durumu";
+  static String aboutMe = "Hakkımda";
+  static String checkNetwork = "İnternet bağlantnızı kontrol ediniz";
   static List<String> illerWithTumiller = [
     "Tüm iller",
     "Adana",
@@ -84,16 +93,7 @@ class Svalue {
     "Yozgat",
     "Zonguldak"
   ];
-
-  ///
-  static String secilenBolum = "Tüm bölümler";
-  static List<String> bolumlerWithTumbolumler = [
-    "Tüm bölümler",
-    "Bilişim",
-    "Tapu"
-  ];
-
-  ///
+  static List<String> bolumlerWithTumbolumler = ["Tüm bölümler", "Bilişim", "Tapu"];
   static List<String> iller = [
     "Adana",
     "Adıyaman",

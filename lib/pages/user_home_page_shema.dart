@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:makuuygulama/pages/guestPage.dart';
-import 'package:makuuygulama/pages/user_profile.dart';
+import 'package:makuuygulama/pages/guest_page.dart';
+import 'package:makuuygulama/pages/user_profile_page.dart';
 
 class UserHomePageShema extends StatelessWidget {
   @override

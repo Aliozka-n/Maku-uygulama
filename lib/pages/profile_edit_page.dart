@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:makuuygulama/consts/sValue.dart';
+import 'package:makuuygulama/consts/app_consts.dart';
 import 'package:makuuygulama/firebase_service.dart';
 import 'package:makuuygulama/validation/userRegisterValidation.dart';
 
 class UserProfileSettingsWiget extends StatefulWidget {
   @override
-  State<UserProfileSettingsWiget> createState() =>
-      _UserProfileSettingsWigetState();
+  State<UserProfileSettingsWiget> createState() => _UserProfileSettingsWigetState();
 }
 
 class _UserProfileSettingsWigetState extends State<UserProfileSettingsWiget> {
@@ -19,9 +18,9 @@ class _UserProfileSettingsWigetState extends State<UserProfileSettingsWiget> {
   String? secilenil = "Adana";
   String? secilenBolum = "Bilişim";
   String? secilenDurumu = "Çalışıyor";
-  var bolumler = Svalue.bolumler;
-  var durumlar = Svalue.durumlar;
-  var iller = Svalue.iller;
+  var bolumler = AppConsts.bolumler;
+  var durumlar = AppConsts.durumlar;
+  var iller = AppConsts.iller;
   var name = '';
   @override
   Widget build(BuildContext context) {
@@ -59,27 +58,19 @@ class _UserProfileSettingsWigetState extends State<UserProfileSettingsWiget> {
                         children: [
                           /// ad
                           buildTextField("Ad Soyad", _nameController,
-                              errorText: userValidate
-                                  .validateName(_nameController.value.text)),
+                              errorText: userValidate.validateName(_nameController.value.text)),
                           buildSizedBox(),
 
                           /// il seçimi
-                          buildDecoratedBox(
-                              secili: secilenil, liste: iller, stateA: "il"),
+                          buildDecoratedBox(secili: secilenil, liste: iller, stateA: "il"),
                           buildSizedBox(),
 
                           /// bölüm  adı listeden seçecek
-                          buildDecoratedBox(
-                              secili: secilenBolum,
-                              liste: bolumler,
-                              stateA: "bolum"),
+                          buildDecoratedBox(secili: secilenBolum, liste: bolumler, stateA: "bolum"),
                           buildSizedBox(),
 
                           /// durum adı listeden seçecek
-                          buildDecoratedBox(
-                              secili: secilenDurumu,
-                              liste: durumlar,
-                              stateA: "durum"),
+                          buildDecoratedBox(secili: secilenDurumu, liste: durumlar, stateA: "durum"),
                           buildSizedBox(),
                           TextField(
                             controller: textController,
@@ -120,8 +111,7 @@ class _UserProfileSettingsWigetState extends State<UserProfileSettingsWiget> {
                                     "hakkinda": textController.text,
                                   };
                                   userRef.update(veri);
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                     content: Text("Kaydedildi"),
                                   ));
                                 } else {
@@ -156,17 +146,12 @@ class _UserProfileSettingsWigetState extends State<UserProfileSettingsWiget> {
     );
   }
 
-  DecoratedBox buildDecoratedBox(
-      {required List<String> liste,
-      required String? secili,
-      required String stateA}) {
+  DecoratedBox buildDecoratedBox({required List<String> liste, required String? secili, required String stateA}) {
     return DecoratedBox(
       decoration: BoxDecoration(
           color: Colors.red, //background color of dropdown button
-          border: Border.all(
-              color: Colors.black38, width: 3), //border of dropdown button
-          borderRadius:
-              BorderRadius.circular(10), //border raiuds of dropdown button
+          border: Border.all(color: Colors.black38, width: 3), //border of dropdown button
+          borderRadius: BorderRadius.circular(10), //border raiuds of dropdown button
           boxShadow: <BoxShadow>[
             //apply shadow on Dropdown button
             BoxShadow(

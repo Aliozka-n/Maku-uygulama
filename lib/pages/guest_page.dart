@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:makuuygulama/consts/sValue.dart';
+import 'package:makuuygulama/consts/app_consts.dart';
 import 'package:makuuygulama/firebase_service.dart';
-import 'package:makuuygulama/pages/user_detay_page.dart';
+import 'package:makuuygulama/pages/user_details_page.dart';
 
 class GuestMain extends StatefulWidget {
   @override
@@ -10,11 +10,11 @@ class GuestMain extends StatefulWidget {
 }
 
 class _GuestMainState extends State<GuestMain> {
-  String? secilenil = Svalue.secilenil;
-  String? secilenBolum = Svalue.secilenBolum;
+  String? secilenil = AppConsts.secilenil;
+  String? secilenBolum = AppConsts.secilenBolum;
 
-  var iller = Svalue.illerWithTumiller;
-  var bolumler = Svalue.bolumlerWithTumbolumler;
+  var iller = AppConsts.illerWithTumiller;
+  var bolumler = AppConsts.bolumlerWithTumbolumler;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class _GuestMainState extends State<GuestMain> {
             stream: personRef.snapshots(),
             builder: (BuildContext context, asyncSnapshot) {
               if (asyncSnapshot.hasError) {
-                return const Center(
-                  child: Text("İnternet bağlantnızı kontrol ediniz"),
+                return Center(
+                  child: Text(AppConsts.checkNetwork),
                 );
               } else if (asyncSnapshot.hasData) {
                 List<DocumentSnapshot> listem = asyncSnapshot.data!.docs;
@@ -39,11 +39,8 @@ class _GuestMainState extends State<GuestMain> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          ///
-                          buildDecoratedBox(
-                              liste: iller, secili: secilenil, index: 0),
-                          buildDecoratedBox(
-                              liste: bolumler, secili: secilenBolum, index: 2),
+                          buildDecoratedBox(liste: iller, secili: secilenil, index: 0),
+                          buildDecoratedBox(liste: bolumler, secili: secilenBolum, index: 2),
                         ],
                       ),
                     ),
@@ -55,18 +52,15 @@ class _GuestMainState extends State<GuestMain> {
                       child: ListView.builder(
                         itemCount: listem.length,
                         itemBuilder: (context, index) {
-                          if (secilenil == "Tüm iller" &&
-                              secilenBolum == "Tüm bölümler") {
+                          if (secilenil == "Tüm iller" && secilenBolum == "Tüm bölümler") {
                             return buildInkWell(listem, index, context);
                           }
-                          if (secilenil == listem[index].get('il') &&
-                              secilenBolum == "Tüm bölümler") {
+                          if (secilenil == listem[index].get('il') && secilenBolum == "Tüm bölümler") {
                             return buildInkWell(listem, index, context);
                           } else if (secilenil == listem[index].get('il') &&
                               secilenBolum == listem[index].get('mezunbolum')) {
                             return buildInkWell(listem, index, context);
-                          } else if (secilenil == "Tüm iller" &&
-                              secilenBolum == listem[index].get('mezunbolum')) {
+                          } else if (secilenil == "Tüm iller" && secilenBolum == listem[index].get('mezunbolum')) {
                             return buildInkWell(listem, index, context);
                           } else {
                             return SizedBox();
@@ -88,8 +82,7 @@ class _GuestMainState extends State<GuestMain> {
     );
   }
 
-  buildInkWell(
-      List<DocumentSnapshot<Object?>> listem, int index, BuildContext context) {
+  buildInkWell(List<DocumentSnapshot<Object?>> listem, int index, BuildContext context) {
     try {
       bool onay = listem[index].get('onay');
       if (onay) {
@@ -153,17 +146,12 @@ class _GuestMainState extends State<GuestMain> {
     }
   }
 
-  DecoratedBox buildDecoratedBox(
-      {required List<String> liste,
-      required String? secili,
-      required int? index}) {
+  DecoratedBox buildDecoratedBox({required List<String> liste, required String? secili, required int? index}) {
     return DecoratedBox(
       decoration: BoxDecoration(
           color: Colors.blue, //background color of dropdown button
-          border: Border.all(
-              color: Colors.black38, width: 3), //border of dropdown button
-          borderRadius:
-              BorderRadius.circular(10), //border raiuds of dropdown button
+          border: Border.all(color: Colors.black38, width: 3), //border of dropdown button
+          borderRadius: BorderRadius.circular(10), //border raiuds of dropdown button
           boxShadow: <BoxShadow>[
             //apply shadow on Dropdown button
             BoxShadow(

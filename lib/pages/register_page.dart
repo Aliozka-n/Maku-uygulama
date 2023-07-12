@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makuuygulama/auth_service.dart';
-import 'package:makuuygulama/consts/sValue.dart';
-import 'package:makuuygulama/pages/loginPages.dart';
+import 'package:makuuygulama/consts/app_consts.dart';
+import 'package:makuuygulama/pages/login_page.dart';
 import 'package:makuuygulama/validation/userRegisterValidation.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -16,8 +16,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordAgainController =
-      TextEditingController();
+  final TextEditingController _passwordAgainController = TextEditingController();
   var hakkindatextController = TextEditingController();
   var alantextController = TextEditingController();
 
@@ -25,9 +24,9 @@ class _RegisterPageState extends State<RegisterPage> {
   String? secilenil = "Adana";
   String? secilenBolum = "Bilişim";
   String? calismaDurumu = "Çalışıyor";
-  var bolumler = Svalue.bolumler;
-  var durumlar = Svalue.durumlar;
-  var iller = Svalue.iller;
+  var bolumler = AppConsts.bolumler;
+  var durumlar = AppConsts.durumlar;
+  var iller = AppConsts.iller;
 
   @override
   Widget build(BuildContext context) {
@@ -54,74 +53,53 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: [
                           /// ad
                           buildTextField("Ad Soyad", _nameController,
-                              errorText: userValidate
-                                  .validateName(_nameController.value.text)),
+                              errorText: userValidate.validateName(_nameController.value.text)),
                           buildSizedBox(),
 
                           /// e mail
                           buildTextField("email", _emailController,
-                              errorText: userValidate
-                                  .validateEmail(_emailController.value.text)),
+                              errorText: userValidate.validateEmail(_emailController.value.text)),
                           buildSizedBox(),
 
                           /// pasword
                           buildTextField("Password", _passwordController,
-                              errorText: userValidate.validatePasword(
-                                  _passwordController.value.text),
-                              obscure: true),
+                              errorText: userValidate.validatePasword(_passwordController.value.text), obscure: true),
                           buildSizedBox(),
 
                           /// pasword again
                           buildTextField("Password", _passwordAgainController,
                               errorText: userValidate.validatePaswordAgain(
-                                  _passwordController.value.text,
-                                  _passwordAgainController.value.text),
+                                  _passwordController.value.text, _passwordAgainController.value.text),
                               obscure: true),
                           buildSizedBox(),
 
                           /// il seçimi
-                          buildDecoratedBox(
-                              listem: iller, value: secilenil, hangialan: "il"),
+                          buildDecoratedBox(listem: iller, value: secilenil, hangialan: "il"),
                           buildSizedBox(),
 
                           /// bölüm  adı listeden seçecek
-                          buildDecoratedBox(
-                              listem: bolumler,
-                              value: secilenBolum,
-                              hangialan: "bolum"),
+                          buildDecoratedBox(listem: bolumler, value: secilenBolum, hangialan: "bolum"),
                           buildSizedBox(),
 
                           /// durum adı listeden seçecek
-                          buildDecoratedBox(
-                              listem: durumlar,
-                              value: calismaDurumu,
-                              hangialan: "calisma"),
+                          buildDecoratedBox(listem: durumlar, value: calismaDurumu, hangialan: "calisma"),
                           buildSizedBox(),
 
                           /// alan
-                          buildTextFieldNolimit(
-                              controller: alantextController,
-                              hintText: "Çalıştığınız anal nedir?"),
+                          buildTextFieldNolimit(controller: alantextController, hintText: "Çalıştığınız anal nedir?"),
                           buildSizedBox(),
 
                           /// hakkinda
                           buildTextFieldNolimit(
-                              controller: hakkindatextController,
-                              hintText: "Çalıştığınız işi özetleyiniz"),
+                              controller: hakkindatextController, hintText: "Çalıştığınız işi özetleyiniz"),
                           buildSizedBox(),
                           ElevatedButton(
                             onPressed: () {
-                              String? password =
-                                  userValidate.validatePaswordAgain(
-                                      _passwordAgainController.value.text,
-                                      _passwordController.value.text);
-                              String? email = userValidate
-                                  .validateEmail(_emailController.value.text);
-                              String? name = userValidate
-                                  .validateName(_nameController.value.text);
-                              if (password == null &&
-                                  email == null &&
-                                  name == null) {
+                              String? password = userValidate.validatePaswordAgain(
+                                  _passwordAgainController.value.text, _passwordController.value.text);
+                              String? email = userValidate.validateEmail(_emailController.value.text);
+                              String? name = userValidate.validateName(_nameController.value.text);
+                              if (password == null && email == null && name == null) {
                                 _authService
                                     .createPerson(
                                         name: _nameController.text,
@@ -133,23 +111,16 @@ class _RegisterPageState extends State<RegisterPage> {
                                         il: secilenil.toString(),
                                         alan: alantextController.text)
                                     .then((value) => Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginPage())));
+                                        context, MaterialPageRoute(builder: (context) => LoginPage())));
                               } else {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                   content: Text("Bir Hata oluştu"),
                                 ));
                               }
                             },
                             child: Text(
                               'Kayıt Ol',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 27,
-                                  fontWeight: FontWeight.w700),
+                              style: TextStyle(color: Colors.white, fontSize: 27, fontWeight: FontWeight.w700),
                             ),
                           ),
                         ],
@@ -165,17 +136,12 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  DecoratedBox buildDecoratedBox(
-      {required String? value,
-      required List<String> listem,
-      required String hangialan}) {
+  DecoratedBox buildDecoratedBox({required String? value, required List<String> listem, required String hangialan}) {
     return DecoratedBox(
       decoration: BoxDecoration(
           color: Colors.red, //background color of dropdown button
-          border: Border.all(
-              color: Colors.black38, width: 3), //border of dropdown button
-          borderRadius:
-              BorderRadius.circular(10), //border raiuds of dropdown button
+          border: Border.all(color: Colors.black38, width: 3), //border of dropdown button
+          borderRadius: BorderRadius.circular(10), //border raiuds of dropdown button
           boxShadow: <BoxShadow>[
             //apply shadow on Dropdown button
             BoxShadow(
@@ -210,8 +176,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  TextField buildTextFieldNolimit(
-      {required TextEditingController controller, required String hintText}) {
+  TextField buildTextFieldNolimit({required TextEditingController controller, required String hintText}) {
     return TextField(
       controller: controller,
       maxLines: null,

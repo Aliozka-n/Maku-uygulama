@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:makuuygulama/auth_service.dart';
-import 'package:makuuygulama/pages/guestPage.dart';
-import 'package:makuuygulama/pages/registerPage.dart';
+import 'package:makuuygulama/pages/guest_page.dart';
+import 'package:makuuygulama/pages/register_page.dart';
 import 'package:makuuygulama/pages/user_home_page_shema.dart';
-import 'package:makuuygulama/pages/uygulama_tanitim.dart';
+import 'package:makuuygulama/pages/uygulama_promotion_page.dart';
 
 class LoginPage extends StatelessWidget {
   final AuthService _authService = AuthService();
@@ -34,13 +34,9 @@ class LoginPage extends StatelessWidget {
                   color: Colors.transparent,
                 ),
                 buildSizedBox(context),
-                buildTextField(
-                    controller: _emailController, hinttext: "E-mail"),
+                buildTextField(controller: _emailController, hinttext: "E-mail"),
                 buildSizedBox(context),
-                buildTextField(
-                    controller: _passwordController,
-                    hinttext: "Şifre",
-                    obscureText: true),
+                buildTextField(controller: _passwordController, hinttext: "Şifre", obscureText: true),
                 buildSizedBox(context),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -49,8 +45,7 @@ class LoginPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const RegisterPage()),
+                            MaterialPageRoute(builder: (context) => const RegisterPage()),
                           );
                         },
                         child: Text(
@@ -100,10 +95,7 @@ class LoginPage extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => GuestMain()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GuestMain()));
                       },
                       child: Text(
                         "Misafir",
@@ -112,10 +104,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => UygulamaTanitim()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => UygulamaTanitim()));
                       },
                       child: Text(
                         "Tanıtım",
@@ -133,9 +122,7 @@ class LoginPage extends StatelessWidget {
   }
 
   TextField buildTextField(
-      {required TextEditingController controller,
-      required String? hinttext,
-      bool obscureText = false}) {
+      {required TextEditingController controller, required String? hinttext, bool obscureText = false}) {
     return TextField(
       obscureText: obscureText,
       controller: controller,
